@@ -4,15 +4,15 @@ from utils.config_loader import get_config
 from grid import Grid
 
 # Load configuration
-config = get_config('config/config.yaml')
+config = get_config("config/config.yaml")
 
 # Initialize Pygame
 pygame.init()
 
 # Set up the display
-WIDTH, HEIGHT = config['display']['width'], config['display']['height']
-GRID_SIZE = config['simulation']['grid_size']
-NUM_CREATURES = config['simulation']['num_creatures']
+WIDTH, HEIGHT = config["display"]["width"], config["display"]["height"]
+GRID_SIZE = config["simulation"]["grid_size"]
+NUM_CREATURES = config["simulation"]["num_creatures"]
 CELL_SIZE = WIDTH // GRID_SIZE
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -33,7 +33,7 @@ while running:
     grid.update()
 
     # Fill the screen with white
-    screen.fill(tuple(config['colors']['white']))
+    screen.fill(tuple(config["colors"]["white"]))
 
     # Draw the grid
     grid.draw(screen, CELL_SIZE)
