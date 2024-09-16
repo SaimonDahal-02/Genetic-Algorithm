@@ -18,12 +18,19 @@ CELL_SIZE = WIDTH // GRID_SIZE
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Creature Evolution Simulation")
 
+generation_duration = 300  # Number of frames per generation
 # Create the grid and populate it with creatures
-grid = Grid(GRID_SIZE, GRID_SIZE, NUM_CREATURES)
+grid = Grid(
+    GRID_SIZE, GRID_SIZE, NUM_CREATURES, steps_per_generation=generation_duration
+)
+
+# Set up font for displaying generation
+font = pygame.font.Font(None, 36)
 
 # Main game loop
 running = True
 clock = pygame.time.Clock()
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -37,6 +44,17 @@ while running:
 
     # Draw the grid
     grid.draw(screen, CELL_SIZE)
+
+    # Display current generation
+    generation_text = font.render(
+        f"Generation: {grid.generation}", True, (0, 0, 0))
+    screen.blit(generation_text, (10, 10))
+
+    if grid.generation > 0:
+        survival_text = font.render(
+            f"Previous Gen Survival:{grid.survival_rate:.2f}%", True, (0, 0, 0)
+        )
+        screen.blit(survival_text, (10, 50))
 
     # Update the display
     pygame.display.flip()
